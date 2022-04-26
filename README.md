@@ -1,32 +1,37 @@
 # Can of Books 
 
-**Author**: Roger Reyes and Kyle Honoker
+**Author**: Roger Reyes and Kyle Honaker
 **Version**: 1.0.0 
 
 ## Overview
-<!-- Provide a high level overview of what this application is and why you are building it, beyond the fact that it's an assignment for this class. (i.e. What's your problem domain?) -->
+This application sends out a query request to the backend server. On mount the home page will render a Carousel displaying information about the books taken from the cloud database.
 
 ## Getting Started
-<!-- What are the steps that a user must take in order to build this app on their own machine and get it running? -->
+A user must set up the front and back end of their client and server and connect them using a GET request. They must also have a MongoDB database set up in order to write, store, and read information to the database.
 
 ## Architecture
-<!-- Provide a detailed description of the application design. What technologies (languages, libraries, etc) you're using, and any other relevant design information. -->
+The front end client will do a GET request to the server on Mount. The server will pull the information from the MongoDB and send it back to the client. The client will then check to see that the information has populated and insert the details into the Carousel.
 
 ## Change Log
-<!-- Use this area to document the iterative changes made to your application as each feature is successfully implemented. Use time stamps. Here's an example:
+Name of feature: #1 Carousel Creation
 
-01-01-2001 4:59pm - Application now has a fully-functional express server, with a GET route for the location resource. -->
+Estimate of time needed to complete: 1 hour
+
+Start time: 4:05
+
+Finish time: 6:00
+
+Actual time needed to complete: _____
 
 ## Estimates
 Name of feature: Lab 11
 
 Estimate of time needed to complete: 4 hours
 
-Start time: _____
+Start time: 4:00
+Finish time: 6:15
 
-Finish time: _____
-
-Actual time needed to complete: _____
+Actual time needed to complete: 2 hours 15 min
 
 ## Credit and Collaborations
-<!-- Give credit (and a link) to other people or resources that helped you build this application. -->
+TA Adam Owada - Found issue with using https instead of http in .env
