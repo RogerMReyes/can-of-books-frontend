@@ -38,6 +38,8 @@ Finish time: 6:15
 
 Actual time needed to complete: 2 hours 15 min
 
+---
+
 Lab 12:
 
 Estimate of time needed to complete: 2 hours
@@ -47,6 +49,17 @@ Start time: 2:30PM
 Finish time: 6:00PM
 
 Actual time needed to complete: 3 hours 30 min
+
+---
+
+Name of feature: Lab 13
+
+Estimate of time needed to complete: 2 hours
+
+Start time: 2:00
+Finish time: 3:30
+
+Actual time needed to complete: 1 hours 30 min
 
 ## Credit and Collaborations
 
