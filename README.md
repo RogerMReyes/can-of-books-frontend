@@ -25,7 +25,7 @@ Start time: 4:05
 
 Finish time: 6:00
 
-Actual time needed to complete: _____
+Actual time needed to complete: 2 hours
 
 ## Estimates
 
@@ -38,9 +38,20 @@ Finish time: 6:15
 
 Actual time needed to complete: 2 hours 15 min
 
+Lab 12:
+
+Estimate of time needed to complete: 2 hours
+
+Start time: 2:30PM
+
+Finish time: 6:00PM
+
+Actual time needed to complete: 3 hours 30 min
+
 ## Credit and Collaborations
 
 TA Adam Owada - Found issue with using https instead of http in .env
+Justin Hamerly (TA) Helping with handshake from front-end to server
 
 ## Team Agreement
 
