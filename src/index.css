@@ -1,0 +1,15 @@
+body{
+  background-color: black;
+}
+
+#addButton{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 2em;
+}
+
+.card{
+  padding: 20px;
+  height: auto;
+}

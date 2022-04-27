@@ -1,6 +1,9 @@
 import React from 'react';
 import axios from 'axios';
-import { Carousel } from 'react-bootstrap';
+import { Carousel, Button, Modal } from 'react-bootstrap';
+import BookFormModal from './BookFormModal';
+import placeHolder from './imgs/booksPlaceholder3.jpg'
+
 
 
 
@@ -8,11 +11,11 @@ class BestBooks extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      books: []
+      books: [],
+      showModal: false
     }
   }
 
-  /* TODO: Make a GET request to your API to fetch all the books from the database  */
   getBooks = async () => {
     try {
       let bookUrl = `${process.env.REACT_APP_SERVER}/book`;
@@ -27,46 +30,130 @@ class BestBooks extends React.Component {
     }
   }
 
+  postBook = async (book) => {
+    try {
+      let url = `${process.env.REACT_APP_SERVER}/book`
+      let createdBook = await axios.post(url, book)
+      this.setState({
+        books: [...this.state.books, createdBook.data]
+      })
+    }
+    catch (err) {
+      console.log('We have an error: ', err.response.data)
+    }
+  }
+
+  deleteBook = async (id) => {
+    try {
+      let url = `${process.env.REACT_APP_SERVER}/book/${id}`
+      await axios.delete(url);
+      let updatedBooks = this.state.books.filter(book => book._id !== id);
+      this.setState({
+        books: updatedBooks
+      });
+    }
+    catch (err) {
+      console.log('We have an error: ', err.response.data)
+    }
+  }
+
+  handleBookSubmit = (e) => {
+    e.preventDefault();
+    let book = {
+      title: e.target.title.value,
+      description: e.target.description.value,
+      hasRead: e.target.hasRead.checked
+    }
+    this.postBook(book);
+  }
+
   componentDidMount() {
     this.getBooks();
   }
 
+  showModal = () => {
+    this.setState({
+      showModal: true
+    })
+  }
 
+  hideModalHandler = () => {
+    this.setState({
+      showModal: false
+    })
+  }
 
   render() {
-
-    /* TODO: render all the books in a Carousel */
-
     return (
-      <Carousel 
-        style={{
-          width: '75vw',
-          margin:'0 auto'
-        }}
-
-      >
-        {/* <h2>My Essential Lifelong Learning &amp; Formation Shelf</h2> */}
-
-        {this.state.books.length ? (
-          this.state.books.map((data, id) => {
-            return (
-                <Carousel.Item key={data.id}>
+      <>
+        <Carousel
+          // variant='dark'
+          style={{
+            width: '50vw',
+            margin: '2em auto 0',
+          }}
+        >
+          {this.state.books.length ? (
+            this.state.books.map((data) => {
+              return (
+                <Carousel.Item key={data._id}>
                   <img
                     className="d-block w-100"
-                    src="https://via.placeholder.com/150"
+                    src={placeHolder}
                     alt="First slide"
                   />
-                  <Carousel.Caption>
-                    <h3>{data.title}</h3>
-                    <p>{data.description}</p>
+                  <Carousel.Caption
+                    style={{
+
+                    }}
+                  >
+                    <div style={{color: 'white', fontSize: '2em'}}>
+                      <h3>{data.title}</h3>
+                      <p>{data.description}</p>
+                    </div>
+                    <Button
+                      onClick={() => this.deleteBook(data._id)}
+                      variant='danger'
+                    >Delete</Button>
                   </Carousel.Caption>
                 </Carousel.Item>
-            )
-          })
-        ) : (
-          <h3>No Books Found</h3>
-        )}
-      </Carousel>
+              )
+            })
+          )
+            :
+            (
+              <h3>No Books Found</h3>
+            )}
+        </Carousel>
+        <div id='addButton'>
+          <Button
+            onClick={(this.showModal)}
+            style={{
+              textAlign: 'center',
+              background: 'rgb(125, 26, 232)',
+              border: '1px solid rgb(125, 26, 232)'
+            }}
+          >
+            Add Book!
+          </Button>
+        </div>
+        <Modal
+          show={this.state.showModal}
+          onHide={this.hideModalHandler}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>
+              Add Your Book
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <BookFormModal
+              handleBookSubmit={this.handleBookSubmit}
+              hideModalHandler={this.hideModalHandler}
+            />
+          </Modal.Body>
+        </Modal>
+      </>
     )
   }
 }
