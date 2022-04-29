@@ -4,7 +4,7 @@ import { Carousel, Button, Modal } from 'react-bootstrap';
 import BookFormModal from './BookFormModal';
 import placeHolder from './imgs/booksPlaceholder3.jpg'
 import BookUpdateModal from './BookUpdateModal';
-
+import { withAuth0 } from '@auth0/auth0-react';
 
 
 
@@ -21,17 +21,29 @@ class BestBooks extends React.Component {
 
   getBooks = async () => {
     try {
-      let bookUrl = `${process.env.REACT_APP_SERVER}/book`;
-      let results = await axios.get(bookUrl);
+      if (this.props.auth0.isAuthenticated) {
+        let res = await this.props.auth0.getIdTokenClaims();
+        const jwt = res.__raw;
+        const config = {
+          method: 'get',
+          baseUrl: process.env.REACT_APP_SERVER,
+          url: '/book',
+          headers: { 'Authorization': `Bearer ${jwt}` }
+        }
+        const bookResults = await axios(config);
+        // let bookUrl = `${process.env.REACT_APP_SERVER}/book`;
+        // let results = await axios.get(bookUrl);
 
-      this.setState({
-        books: results.data
-      })
+        this.setState({
+          books: bookResults.data
+        })
+      }
     }
     catch (error) {
       console.log('we have an error:')
     }
   }
+
 
   postBook = async (book) => {
     try {
@@ -50,7 +62,7 @@ class BestBooks extends React.Component {
     try {
       let url = `${process.env.REACT_APP_SERVER}/book/${id}`
       await axios.delete(url);
-      let updatedBooks = this.state.books.filter(book => book._id !== id);
+      let updatedBooks = this.state.books.filter(book => book.id !== id);
       this.setState({
         books: updatedBooks
       });
@@ -207,4 +219,5 @@ class BestBooks extends React.Component {
   }
 }
 
-export default BestBooks;
+
+export default withAuth0(BestBooks);

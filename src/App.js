@@ -9,26 +9,34 @@ import {
   Route
 } from "react-router-dom";
 import Profile from './About.js';
+import { withAuth0 } from '@auth0/auth0-react';
 
 class App extends React.Component {
   render() {
+    console.log(this.props.auth0.isAuthenticated);
     return (
       <>
+
         <Router>
           <Header />
           <Switch>
             <Route exact path="/">
-              <BestBooks />
+              {this.props.auth0.isAuthenticated
+                ?
+                <BestBooks />
+                : <><h2>Welcome! Please login.</h2></>
+              }
             </Route>
             <Route exact path="/About.js">
-              <Profile/>
+              <Profile />
             </Route>
           </Switch>
           <Footer />
         </Router>
+
       </>
     )
   }
 }
 
-export default App;
+export default withAuth0(App);
