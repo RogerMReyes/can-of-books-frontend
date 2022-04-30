@@ -61,6 +61,17 @@ Finish time: 3:30
 
 Actual time needed to complete: 1 hours 30 min
 
+---
+
+Name of feature: Lab 15
+
+Estimate of time needed to complete: 2 hours
+
+Start time: 3:30
+Finish time: 5:50
+
+Actual time needed to complete: 2 hours 20 min
+
 ## Credit and Collaborations
 
 TA Adam Owada - Found issue with using https instead of http in .env
