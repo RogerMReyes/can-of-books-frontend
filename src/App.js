@@ -8,7 +8,8 @@ import {
   Switch,
   Route
 } from "react-router-dom";
-import Profile from './About.js';
+import Profile from './Profile';
+import About from './About'
 import { withAuth0 } from '@auth0/auth0-react';
 
 class App extends React.Component {
@@ -27,9 +28,19 @@ class App extends React.Component {
                 : <><h2>Welcome! Please login.</h2></>
               }
             </Route>
-            <Route exact path="/About.js">
-              <Profile />
+            <Route path="/About.js">
+              <About/>
             </Route>
+            {this.props.auth0.isAuthenticated
+              ?
+              <>
+              <Profile/>
+              <Route path="/Profile.js">
+              </Route>
+              </>
+              :
+              <></>
+            }
           </Switch>
           <Footer />
         </Router>
