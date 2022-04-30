@@ -12,6 +12,7 @@ class Header extends React.Component {
         <Navbar.Brand>My Favorite Books</Navbar.Brand>
         <NavItem><Link to="/" className="nav-link">Home</Link></NavItem>
         <NavItem><Link to="/About.js" className="nav-link">About</Link></NavItem>
+        <NavItem><Link to="/Profile.js" className="nav-link">Profile</Link></NavItem>
         {this.props.auth0.isAuthenticated
           ? <Logout />
           : <Login />}
